@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+  <security:http use-expressions="true">
+   <!--  <security:access-denied-handler ref="myAuthHandler" /> -->
+   <security:access-denied-handler  error-page="/login_access_failure.jsp"/>
+     <security:intercept-url pattern="/home.jsp" access="permitAll"/>
+     <security:intercept-url  pattern="/pages/faculty.jsp" access="hasRole('ROLE_FACULTY')"/>
+     <security:intercept-url  pattern="/pages/admin.jsp" access="hasRole('ROLE_ADMIN')"/>
+     
+     <security:form-login  />
+    <!--  <security:form-login login-page="/login_form.jsp" authentication-failure-url="/login_failure.jsp"/> -->
+     <!-- <security:logout logout-success-url="/logout.jsp"  /> -->
+     <security:logout logout-success-url="/logout.jsp" logout-url="/our_sps_logout"/>
+     <security:remember-me />
+     <security:session-management invalid-session-url="/timeout.jsp">
+       <security:concurrency-control max-sessions="3" error-if-maximum-exceeded="true"/>
+     </security:session-management>
+     
+  </security:http>
+   <bean id="myAuthHandler" class="com.nt.handler.MyAccessDeniedHandler">
+      <property name="errorPage" value="../login_access_failure.jsp"/>
+   
+   </bean>
+
+
+  <security:authentication-manager>
+    <security:authentication-provider >
+      <security:user-service >
+       <security:user name="raja" password="raja"  authorities="ROLE_FACULTY" />
+       <security:user name="rani" password="rani" authorities="ROLE_ADMIN"/>
+       <security:user name="jani" password="jani" authorities="ROLE_ADMIN,ROLE_FACULTY"/>
+      </security:user-service>
+    
+    </security:authentication-provider>
+  
+   
+  </security:authentication-manager>
+
+</beans>

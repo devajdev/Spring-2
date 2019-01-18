@@ -1,0 +1,2 @@
+//com.springsource.sts.config.flow.coordinates\:http\://www.springframework.org/schema/batch\:/BatchApp2-DBToCSv-MySQl/src/main/java/com/nt/cfgs/batch-beans.xml=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<graph>\r\n<element clazz\="JobModelElement" type\="job">\r\n<structure end\="2361" endstart\="2349" start\="1954" startend\="2008"/>\r\n<bounds height\="118" width\="180" x\="15" y\="17"/>\r\n</element>\r\n</graph>
+eclipse.preferences.version=1

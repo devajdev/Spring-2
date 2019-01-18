@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+<security:http auto-config="true" use-expressions="true">
+  <security:intercept-url pattern="/home.htm"  access="permitAll"/>
+  <security:intercept-url pattern="/inbox.htm" access="hasRole('ROLE_OWNER')"/>
+  <security:form-login/>
+<!--   <security:remember-me/> -->
+  <!-- <security:session-management >
+     <security:concurrency-control max-sessions="3" error-if-maximum-exceeded="true"/>
+  </security:session-management>
+  <security:access-denied-handler error-page="/access_failed.jsp"/>
+  <security:logout logout-success-url="/logout.jsp"/>
+</ -->
+</security:http>
+
+<security:authentication-manager>
+  <security:ldap-authentication-provider
+			user-search-filter="(uid={0})" user-search-base="ou=users"
+			group-search-filter="(uniqueMember={0})" group-search-base="ou=roles"
+			group-role-attribute="cn" role-prefix="ROLE_">
+		</security:ldap-authentication-provider>
+	</security:authentication-manager>
+	
+	
+	<security:ldap-server url="ldap://localhost:10389/o=nit"
+		manager-dn="uid=admin,ou=system" manager-password="secret" />
+
+   
+</beans>

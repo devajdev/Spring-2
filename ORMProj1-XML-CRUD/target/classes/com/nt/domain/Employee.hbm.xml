@@ -1,0 +1,19 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+   <class name="com.nt.domain.EmployeeHLO"  table="EMPLOYEE">
+      <id name="eid" type="int" length="7" >
+        <generator class="increment"/>
+      </id>
+      <property name="firstName" type="string" length="10"/>
+      <property name="lastName" type="string" length="10"/>
+      <property name="salary" type="float" length="7" precision="2"/>
+   </class>
+   <query name="HQL_GET_EMPS_BY_EID_RANGE">
+   <![CDATA[
+     from EmployeeHLO where eid>=:min and eid<=:max
+   ]]>
+   </query>
+
+</hibernate-mapping>	
